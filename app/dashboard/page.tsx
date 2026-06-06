@@ -10,7 +10,7 @@ export default async function DashboardPage() {
   // Fetch all customers (for MVP, we fetch all instead of filtering by assignedTo)
   // We leanly select only the fields needed for the list view to optimize performance
   const customersData = await Customer.find({})
-    .select("firstName lastName age city maritalStatus statusTag")
+    .select("firstName lastName age city maritalStatus statusTag gender religion")
     .sort({ createdAt: -1 })
     .lean();
 
@@ -23,18 +23,31 @@ export default async function DashboardPage() {
     city: c.city,
     maritalStatus: c.maritalStatus,
     statusTag: c.statusTag,
+    gender: c.gender,
+    religion: c.religion,
   }));
 
+  // Compute stats for the dashboard cards
+  const stats = {
+    total: customers.length,
+    active: customers.filter(c => c.statusTag === "Active").length,
+    matched: customers.filter(c => c.statusTag === "Matched").length,
+    meetings: customers.filter(c => c.statusTag === "Meeting Scheduled").length,
+  };
+
   return (
-    <div className="space-y-6 animate-in fade-in zoom-in-95 duration-500">
+    <div className="space-y-8 animate-fade-in">
+      {/* Welcome Header */}
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-100">Customer List</h1>
-        <p className="text-zinc-400 mt-2">
-          Manage and review all your assigned matchmaking clients.
+        <h1 className="font-heading text-3xl font-bold tracking-tight text-stone-800">
+          Welcome back 💍
+        </h1>
+        <p className="text-stone-500 mt-1.5 text-sm">
+          Manage your clients, review profiles, and find perfect matches.
         </p>
       </div>
 
-      <CustomerListTable customers={customers} />
+      <CustomerListTable customers={customers} stats={stats} />
     </div>
   );
 }

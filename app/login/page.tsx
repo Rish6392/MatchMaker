@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Heart, Loader2 } from "lucide-react";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -50,30 +51,47 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-950 p-4">
-      <div className="w-full max-w-md animate-in fade-in zoom-in duration-500">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-cream-bg via-rose-lightest/30 to-gold-light/20 p-4 relative overflow-hidden">
+      {/* Subtle background pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: "radial-gradient(#C2185B 0.5px, transparent 0.5px)",
+          backgroundSize: "20px 20px",
+        }}
+      />
+
+      <div className="w-full max-w-md animate-scale-in relative z-10">
+        {/* Brand Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-zinc-100">Matchmaker Portal</h1>
-          <p className="text-zinc-400 mt-2">Log in to manage your clients and matches</p>
+          <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-rose-primary to-rose-500 shadow-xl shadow-rose-primary/20 mb-5">
+            <Heart className="h-7 w-7 text-white fill-white" />
+          </div>
+          <h1 className="font-heading text-3xl font-bold tracking-tight text-stone-800">
+            TDC Matchmaker
+          </h1>
+          <p className="text-stone-500 mt-2 text-sm">
+            Sign in to your matchmaking portal
+          </p>
         </div>
 
-        <Card className="border-zinc-800 bg-zinc-900 shadow-2xl">
+        <Card className="border-stone-200/60 bg-white/90 backdrop-blur-sm shadow-xl shadow-stone-900/5 rounded-2xl">
           <form onSubmit={handleLogin}>
-            <CardHeader>
-              <CardTitle className="text-xl text-zinc-100">Welcome back</CardTitle>
-              <CardDescription className="text-zinc-400">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg text-stone-800 font-semibold">Welcome back</CardTitle>
+              <CardDescription className="text-stone-500 text-sm">
                 Enter your credentials to access the dashboard.
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 pt-2">
               {error && (
-                <div className="p-3 text-sm rounded-md bg-red-950/50 text-red-400 border border-red-900/50">
+                <div className="p-3 text-sm rounded-xl bg-red-50 text-red-600 border border-red-200 font-medium">
                   {error}
                 </div>
               )}
               
               <div className="space-y-2">
-                <label className="text-sm font-medium text-zinc-300" htmlFor="username">
+                <label className="text-sm font-medium text-stone-600" htmlFor="username">
                   Username
                 </label>
                 <Input
@@ -81,13 +99,13 @@ export default function LoginPage() {
                   placeholder="admin"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="bg-zinc-950 border-zinc-800 text-zinc-100 placeholder:text-zinc-600 focus-visible:ring-zinc-700"
+                  className="bg-stone-50/80 border-stone-200 text-stone-800 placeholder:text-stone-400 focus-visible:ring-rose-primary/30 focus-visible:border-rose-primary/40 rounded-xl h-11"
                   disabled={loading}
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-zinc-300" htmlFor="password">
+                <label className="text-sm font-medium text-stone-600" htmlFor="password">
                   Password
                 </label>
                 <Input
@@ -96,22 +114,33 @@ export default function LoginPage() {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="bg-zinc-950 border-zinc-800 text-zinc-100 placeholder:text-zinc-600 focus-visible:ring-zinc-700"
+                  className="bg-stone-50/80 border-stone-200 text-stone-800 placeholder:text-stone-400 focus-visible:ring-rose-primary/30 focus-visible:border-rose-primary/40 rounded-xl h-11"
                   disabled={loading}
                 />
               </div>
             </CardContent>
-            <CardFooter>
+            <CardFooter className="pt-2">
               <Button 
                 type="submit" 
-                className="w-full bg-zinc-100 text-zinc-900 hover:bg-zinc-200"
+                className="w-full bg-gradient-to-r from-rose-primary to-rose-600 hover:from-rose-700 hover:to-rose-700 text-white rounded-xl h-11 shadow-lg shadow-rose-primary/20 transition-all font-semibold"
                 disabled={loading}
               >
-                {loading ? "Authenticating..." : "Sign in"}
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Authenticating...
+                  </>
+                ) : (
+                  "Sign in"
+                )}
               </Button>
             </CardFooter>
           </form>
         </Card>
+
+        <p className="text-center text-xs text-stone-400 mt-6">
+          TDC Matchmaker &middot; Premium Matchmaking Platform
+        </p>
       </div>
     </div>
   );

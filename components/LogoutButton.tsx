@@ -17,9 +17,9 @@ export function LogoutButton() {
     <Button 
       variant="ghost" 
       onClick={handleLogout}
-      className="text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800"
+      className="w-full justify-start text-stone-500 hover:text-rose-primary hover:bg-rose-lightest/60 rounded-xl text-sm gap-2"
     >
-      <LogOut className="mr-2 h-4 w-4" />
+      <LogOut className="h-4 w-4" />
       Log out
     </Button>
   );

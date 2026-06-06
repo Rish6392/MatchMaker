@@ -3,7 +3,7 @@ dotenv.config({ path: ".env" });
 
 import { connectDB } from "../lib/db";
 import Customer from "../models/Customer";
-import { faker } from "@faker-js/faker";
+import { fakerEN_IN as faker } from "@faker-js/faker";
 
 const seedData = async () => {
     try {
@@ -24,7 +24,7 @@ const seedData = async () => {
         const yesNoMaybe = ["Yes", "No", "Maybe"];
         const familyTypes = ["Nuclear", "Joint"];
         const manglikOptions = ["Yes", "No", "Don't Know"];
-        const maritalStatuses = ["Never Married", "Divorced", "Widowed"];
+        const maritalStatuses = ["Never Married", "Never Married", "Never Married", "Never Married", "Divorced", "Widowed"];
         const languages = ["Hindi", "English", "Marathi", "Gujarati", "Bengali", "Tamil", "Telugu", "Kannada", "Malayalam", "Punjabi"];
         const motherTongues = ["Hindi", "English", "Marathi", "Gujarati", "Bengali", "Tamil", "Telugu", "Kannada", "Malayalam", "Punjabi"];
 
